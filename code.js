@@ -1,6 +1,13 @@
 // past this on chrome console here https://neal.fun/infinite-craft/
 
-function simulateDragAndDrop(element, startX, startY, targetX, targetY, steps = 10) {
+function simulateDragAndDrop(
+  element,
+  startX,
+  startY,
+  targetX,
+  targetY,
+  steps = 10
+) {
   return new Promise((resolve) => {
     function triggerMouseEvent(target, eventType, clientX, clientY) {
       const event = new MouseEvent(eventType, {
@@ -13,7 +20,9 @@ function simulateDragAndDrop(element, startX, startY, targetX, targetY, steps = 
       target.dispatchEvent(event);
     }
 
-    console.log(`Start: (${startX}, ${startY}), Target: (${targetX}, ${targetY})`);
+    console.log(
+      `Start: (${startX}, ${startY}), Target: (${targetX}, ${targetY})`
+    );
     triggerMouseEvent(element, "mousedown", startX, startY);
 
     let currentX = startX;
@@ -50,7 +59,10 @@ async function test() {
   const processedPairs = new Set(stored);
 
   function saveProcessedPairs() {
-    localStorage.setItem("processedPairs", JSON.stringify(Array.from(processedPairs)));
+    localStorage.setItem(
+      "processedPairs",
+      JSON.stringify(Array.from(processedPairs))
+    );
   }
 
   async function clickClearButton() {
@@ -58,16 +70,15 @@ async function test() {
     if (clearBtn) {
       clearBtn.click();
       console.log("Clear button clicked.");
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      -(await new Promise((resolve) => setTimeout(resolve, 500)));
+      +(await new Promise((resolve) => setTimeout(resolve, 1000)));
       const dangerBtn = document.getElementsByClassName("action-danger")[0];
-      if (dangerBtn) {
-        dangerBtn.click();
-      }
+      if (dangerBtn) dangerBtn.click();
     } else {
       console.error("Clear button not found.");
     }
   }
-  
+
   async function processCombination(firstItem, secondItem, targetX, targetY) {
     const firstRect = firstItem.getBoundingClientRect();
     const secondRect = secondItem.getBoundingClientRect();
@@ -76,8 +87,20 @@ async function test() {
     const secondStartX = secondRect.x + secondRect.width / 2;
     const secondStartY = secondRect.y + secondRect.height / 2;
 
-    await simulateDragAndDrop(firstItem, firstStartX, firstStartY, targetX, targetY);
-    await simulateDragAndDrop(secondItem, secondStartX, secondStartY, targetX, targetY);
+    await simulateDragAndDrop(
+      firstItem,
+      firstStartX,
+      firstStartY,
+      targetX,
+      targetY
+    );
+    await simulateDragAndDrop(
+      secondItem,
+      secondStartX,
+      secondStartY,
+      targetX,
+      targetY
+    );
     await clickClearButton();
   }
 
