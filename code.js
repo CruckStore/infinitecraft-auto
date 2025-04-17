@@ -70,8 +70,8 @@ async function test() {
     if (clearBtn) {
       clearBtn.click();
       console.log("Clear button clicked.");
-      -(await new Promise((resolve) => setTimeout(resolve, 500)));
-      +(await new Promise((resolve) => setTimeout(resolve, 1000)));
+      -(await new Promise((resolve) => setTimeout(resolve, 250)));
+      +(await new Promise((resolve) => setTimeout(resolve, 250)));
       const dangerBtn = document.getElementsByClassName("action-danger")[0];
       if (dangerBtn) dangerBtn.click();
     } else {
